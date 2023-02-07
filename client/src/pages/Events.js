@@ -42,10 +42,13 @@ const Events = () => {
   };
    useEffect(()=>{},[user])
   // useEffect(() => {
+    
     const getData = async () => {
+      if(user){
       const res = await axios.get('/api/event', {withCredentials:true});
       setEvents(res.data);
     };
+  }
    getData()
 
   // }, []);
