@@ -16,7 +16,7 @@ const Edit = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(`http://localhost:8000/api/event/${id}`);
+      const res = await axios.get(`/api/event/${id}`);
       setData(res.data);
       console.log(res);
     };
@@ -25,7 +25,7 @@ const Edit = () => {
 
   const handleClick = async () => {
     const response = await axios.put(
-      `http://localhost:8000/api/event/edit/${id}`,
+      `/api/event/edit/${id}`,
       data
     );
 

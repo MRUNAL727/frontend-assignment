@@ -43,7 +43,7 @@ const Events = () => {
    useEffect(()=>{},[user])
   // useEffect(() => {
     const getData = async () => {
-      const res = await axios.get('http://localhost:8000/api/event', {withCredentials:true});
+      const res = await axios.get('/api/event', {withCredentials:true});
       setEvents(res.data);
     };
    getData()
@@ -53,7 +53,7 @@ const Events = () => {
   const handleClick = async () => {
     console.log(data);
     const response = await axios.post(
-      `http://localhost:8000/api/event/add`,
+      `/api/event/add`,
       data, { withCredentials: true}
     );
 

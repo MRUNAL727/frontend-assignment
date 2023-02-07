@@ -11,7 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
 
   const handleLogout = async() =>{
-   const res = await axios.post("http://localhost:8000/api/user/logout", null, {
+   const res = await axios.post("/api/user/logout", null, {
     withCredentials: true,
   })
   console.log(res);

@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const { userRouter } = require('./routes/userRoutes');
 const { eventsRouter } = require('./routes/eventsRoutes')
 const cookieParser = require('cookie-parser')
+const path = require('path')
+
 
 const app = express();
 
@@ -18,6 +20,15 @@ app.use(express.json())
 
 app.use('/api/user', userRouter)
 app.use('/api/event', eventsRouter)
+
+if(process.env.NODE_ENV= 'production'){
+  app.use(express.static(path.join( __dirname ,"/client/build")))
+
+   app.get("*", (req,response)=>{
+    response.sendFile(path.resolve(__dirname, 'client', "build", "index.html"))
+  })
+} 
+
 
 mongoose.set('strictQuery', false)
 mongoose

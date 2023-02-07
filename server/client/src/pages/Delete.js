@@ -14,7 +14,7 @@ const Delete = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(`http://localhost:8000/api/event/${id}`, {withCredentials:true});
+      const res = await axios.get(`/api/event/${id}`, {withCredentials:true});
       setData(res.data);
       console.log(res.data);
     };
@@ -23,7 +23,7 @@ const Delete = () => {
 
   const handleClick = async () => {
     const response = await axios.delete(
-      `http://localhost:8000/api/event/delete/${id}`, {withCredentials:true}
+      `/api/event/delete/${id}`, {withCredentials:true}
     
     );
 

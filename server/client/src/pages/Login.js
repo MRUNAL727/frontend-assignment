@@ -14,7 +14,7 @@ const Login = () => {
  const dispatch = useDispatch()
   const handleClick = async () => {
     const response = await axios.post(
-      'http://localhost:8000/api/user/login',
+      '/api/user/login',
       data
     );
     console.log(response.data.user.name);
