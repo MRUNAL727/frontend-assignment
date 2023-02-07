@@ -25,7 +25,7 @@ const Register = () => {
 
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
-  };
+  }; 
 
   useEffect(() => {}, [msg]);
   return (
