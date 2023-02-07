@@ -13,7 +13,7 @@ import {
   TextField,
 } from '@mui/material';
 import { AddCircle, BorderColor, Delete } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import AdapterJalali from '@date-io/date-fns-jalali';
@@ -28,6 +28,7 @@ const Events = () => {
   const [data, setData] = useState();
   const [value, setValue] = useState(null);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const user = useSelector((state)=>  state.user.user)
   console.log(user);
@@ -39,15 +40,15 @@ const Events = () => {
   const handleClose = () => {
     setOpen(false);
   };
-   
    useEffect(()=>{},[user])
-  useEffect(() => {
+  // useEffect(() => {
     const getData = async () => {
       const res = await axios.get('http://localhost:8000/api/event', {withCredentials:true});
       setEvents(res.data);
     };
-    getData();
-  }, []);
+   getData()
+
+  // }, []);
 
   const handleClick = async () => {
     console.log(data);
@@ -58,9 +59,10 @@ const Events = () => {
 
     if (response.status === 200) {
       setData(response.data);
-      // navigate('/')
-      window.location.reload(false);
+      navigate('/')
+      // window.location.reload(false);
       handleClose();
+      getData()
     }
   };
 
@@ -79,6 +81,7 @@ const Events = () => {
       }}
     >
      { user && <Typography>{`Hey ${user}`}</Typography>}
+     { !user && <Typography style={{margin:30, fontSize:30}}>Please login</Typography>}
       <Box spacing={2} style={{ width: '50%', position: 'relative' }}>
         {events &&
           events.map((e) => (

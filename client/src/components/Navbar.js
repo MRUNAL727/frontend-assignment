@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,10 +15,15 @@ const Navbar = () => {
     withCredentials: true,
   })
   console.log(res);
-   if(res.status === 200){
-     dispatch(isLoggedOut())
+   if(res.status == 200){
+    //  dispatch(isLoggedOut())
+     window.location.reload(false)
    }
   }
+
+  useEffect(()=>{
+      
+  }, isLoggedIn)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -32,12 +37,8 @@ const Navbar = () => {
             Events
           </Typography>
           {isLoggedIn && (
-            <Link
-              to="/logout"
-              style={{ color: 'inherit', textDecoration: 'none' }}
-            >
+           
               <Button color="inherit" onClick={handleLogout}>Logout</Button>
-            </Link>
           )}
           {isLoggedOut && (
             <>
