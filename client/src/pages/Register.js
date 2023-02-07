@@ -11,7 +11,7 @@ const Register = () => {
 
   const handleClick = async () => {
     const response = await axios.post(
-      'http://localhost:800/api/user/register',
+      '/api/user/register',
       data
     );
     console.log(response.data.message);
