@@ -6,6 +6,8 @@ const { userRouter } = require('./routes/userRoutes');
 const { eventsRouter } = require('./routes/eventsRoutes')
 const cookieParser = require('cookie-parser')
 const path = require('path')
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 const app = express();
