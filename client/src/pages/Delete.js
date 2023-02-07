@@ -7,26 +7,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-const Edit = () => {
+const Delete = () => {
   const navigate = useNavigate();
   const [data, setData] = useState();
-  const [msg, setMsg] = useState();
-  const [value, setValue] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(`http://localhost:8000/api/event/${id}`);
+      const res = await axios.get(`http://localhost:8000/api/event/${id}`, {withCredentials:true});
       setData(res.data);
-      console.log(res);
+      console.log(res.data);
     };
     getData();
-  }, [id]);
+  }, []);
 
   const handleClick = async () => {
-    const response = await axios.put(
-      `http://localhost:8000/api/event/edit/${id}`,
-      data
+    const response = await axios.delete(
+      `http://localhost:8000/api/event/delete/${id}`, {withCredentials:true}
+    
     );
 
     if (response.status === 200) {
@@ -35,11 +33,8 @@ const Edit = () => {
     }
   };
 
-  const handleChange = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
-  };
+  
 
-  useEffect(() => {}, [msg]);
   return (
     <Box
       style={{
@@ -55,9 +50,9 @@ const Edit = () => {
         <Typography
           style={{ fontSize: 30, fontWeight: 800, textAlign: 'center' }}
         >
-          Edit
+          Delete
         </Typography>
-        {msg && <Typography style={{ color: 'red' }}>{msg}</Typography>}
+        {/* {msg && <Typography style={{ color: 'red' }}>{msg}</Typography>} */}
         <Box
           style={{
             display: 'flex',
@@ -68,33 +63,23 @@ const Edit = () => {
         >
           {data && (
             <>
-              <TextField
+              <Typography
                 id="outlined-basic"
                 label="Description"
                 variant="outlined"
                 name="description"
-                value={data.description}
-                onChange={handleChange}
                 style={{ margin: 20, width: '70%' }}
-              />
+              >Description:&nbsp;&nbsp;&nbsp; {data.description}</Typography>
+              <Typography
+                id="outlined-basic"
+                label="Data"
+                variant="outlined"
+                name="date"
+                style={{ margin: 20, width: '70%' }}
+              >
+                Date:&nbsp;&nbsp;&nbsp; {data.date.split(" ")[2]} {data.date.split(" ")[1]}
 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date"
-                  value={data.date}
-                  name="date"
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                    setData({ ...data, date: newValue.$d.toString() });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      style={{ margin: 20, width: '70%' }}
-                    />
-                  )}
-                />
-              </LocalizationProvider>
+              </Typography>
             </>
           )}
         </Box>
@@ -109,7 +94,7 @@ const Edit = () => {
             Cancel
           </Button>
           <Button variant="contained" onClick={handleClick}>
-            Edit
+            Delete
           </Button>
         </Box>
       </Box>
@@ -117,4 +102,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default Delete;

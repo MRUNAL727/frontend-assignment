@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Events from "./pages/Events";
 import EditEvent from "./pages/EditEvent";
+import Delete from "./pages/Delete";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/edit/:id' element={<EditEvent/>} />
+          <Route path='/delete/:id' element={<Delete />} />
+
         </Routes>
       </BrowserRouter>
     </div>

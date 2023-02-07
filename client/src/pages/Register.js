@@ -16,7 +16,7 @@ const Register = () => {
     );
     console.log(response.data.message);
     if (response.status === 200) {
-      navigate('/');
+      navigate('/login');
     } else {
         console.log(response.data.message);
       setMsg(response.data.message);

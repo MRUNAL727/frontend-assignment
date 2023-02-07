@@ -1,7 +1,8 @@
 const Event = require('../models/Event');
 
 const addEvent = async (req, res) => {
-  console.log(req.id);
+  console.log(req.body.date);
+  
   try {
     const event = await Event({
       userId: req.id,

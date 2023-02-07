@@ -3,20 +3,23 @@ import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { isLoggedIn } from '../store';
 axios.defaults.withCredentials = true
 
 const Login = () => {
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [msg, setMsg] = useState();
-
+ const dispatch = useDispatch()
   const handleClick = async () => {
     const response = await axios.post(
       'http://localhost:8000/api/user/login',
       data
     );
-    console.log(response.data.message);
+    console.log(response.data.user.name);
     if (response.status === 200) {
+      dispatch(isLoggedIn(response.data.user.name))
       navigate('/');
     } else {
         console.log(response.data.message);
@@ -28,7 +31,6 @@ const Login = () => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
-  useEffect(() => {}, [msg]);
   return (
     <Box
       style={{
